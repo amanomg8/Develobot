@@ -1,7 +1,11 @@
+const dotenv = require('dotenv');
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
-const { token } = require('./config.json');
+
+dotenv.config();
+
+const token = process.env.TOKEN;
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers] });
 
@@ -48,4 +52,8 @@ client.on(Events.InteractionCreate, async interaction => {
 	}
 });
 
-client.login(token);
+if (token == "insert-token-here") {
+	console.log("Token not provided! Please specify a correct token.");
+} else {
+    client.login(token);
+};
