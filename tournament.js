@@ -6,8 +6,8 @@ let selectedUsers = [];
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('collect_random_users')
-		.setDescription('Creates a list of random users on your server depending on the number you request')
+		.setName('tournament')
+		.setDescription('will pair two random users together depending on the number of users chosen')
         .addIntegerOption(option =>
             option.setName('numberofusers')
                 .setDescription('The amount of users that will be found')
@@ -66,14 +66,15 @@ module.exports = {
 
         const printAllInArray = (arrayOfChoice) => {
             let listOfUsers = "";
-            for (let i = 0; i<arrayOfChoice.length; i++) {
-                const user = arrayOfChoice[i];
-                if (listOfUsers != ""){
+            for (let i = 0; i<arrayOfChoice.length; i = i+2) {
+                const user1 = arrayOfChoice[i];
+                const user2 = arrayOfChoice[i+1];
+                if (listOfUsers != "" && user2 != undefined){
                     const currentI = i+1
-                    listOfUsers = listOfUsers + currentI.toString() + ". " + user +"\n";
+                    listOfUsers = listOfUsers + currentI.toString() + ". " + user1 + " vs. " + user2 + "\n";
                 }
                 if (listOfUsers == ""){
-                    listOfUsers = "1. " + user +"\n";
+                    listOfUsers = "1. " + user1 +" vs. " + user2 + "\n";
                 }
             }
             return listOfUsers;
